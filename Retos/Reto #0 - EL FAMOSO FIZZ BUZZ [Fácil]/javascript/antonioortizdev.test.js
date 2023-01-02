@@ -32,3 +32,9 @@ test('Múltiplos de 3 y de 5 a la vez por la palabra "fizzbuzz".', () => {
   expect(showFizzBuzzOrNumber(30)).toBe('fizzbuzz')
   expect(showFizzBuzzOrNumber(45)).toBe('fizzbuzz')
 })
+test('that passing 1 prints 1', () => {
+  expect(showFizzBuzzOrNumber(1)).toBe(1)
+})
+test('that passing 100 prints "fizzbuzz"', () => {
+  expect(showFizzBuzzOrNumber(100)).toBe('buzz')
+})
