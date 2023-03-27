@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Self
 from urllib import request
 import json
 import math
@@ -23,18 +24,16 @@ class Game:
     _remaining_tries = 0
     _finished = False
 
-    def __init__(self, word_to_guess: str) -> None:
-        self._set_word_to_guess(word_to_guess)
+    def start(self):
         self._set_remaining_tries()
         self._set_incomplete_word()
-
-    def start(self):
         while not self._finished:
             self._ask_user_to_guess()
             self._check_guessed_word()
 
-    def _set_word_to_guess(self, word_to_guess: str):
+    def set_word_to_guess(self, word_to_guess: str) -> Self:
         self._word_to_guess = word_to_guess
+        return self
 
     def _set_remaining_tries(self):
         self._remaining_tries = math.floor(
@@ -62,4 +61,4 @@ class Game:
 
 
 if __name__ == "__main__":
-    Game(request_random_word()).start()
+    Game().set_word_to_guess(request_random_word()).start()
