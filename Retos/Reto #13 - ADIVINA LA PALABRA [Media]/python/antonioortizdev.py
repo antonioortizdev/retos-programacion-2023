@@ -29,7 +29,7 @@ class Game:
         self._set_incomplete_word()
         while not self._finished:
             self._ask_user_to_guess()
-            self._check_guessed_word()
+            self._check_user_input()
 
     def set_word_to_guess(self, word_to_guess: str) -> Self:
         self._word_to_guess = word_to_guess
@@ -40,7 +40,10 @@ class Game:
             len(self._word_to_guess) * self._PERCENTAGE_TO_HIDE)
 
     def _set_incomplete_word(self):
-        pass
+        self._incomplete_word = self._word_to_guess
+        for position in range(self._remaining_tries):
+            letter_to_guess = self._word_to_guess[position]
+            self._letters_to_guess[position] = letter_to_guess
 
     def _is_solved() -> bool:
         return True
@@ -50,14 +53,23 @@ class Game:
         self._print_remaining_tries()
         self._user_input = input('Please, write a letter or a word: ')
 
+    def _update_incomplete_word(self, letter: str):
+        position = self._word_to_guess.index(letter)
+        if not position:
+            self._remaining_tries -= 1
+            return
+        self._letters_guessed[position] = letter
+        self._incomplete_word = self._incomplete_word.replace(
+
     def _print_incomplete_word(self):
         print(f'The word to guess is: {self._incomplete_word}')
 
     def _print_remaining_tries(self):
         print(f'Tries remaining: {self._remaining_tries}')
 
-    def _check_guessed_word(self):
-        pass
+    def _check_user_input(self):
+        for letter in list(self._user_input):
+            self._update_incomplete_word(letter)
 
 
 if __name__ == "__main__":
